@@ -1,0 +1,29 @@
+{
+  "name": "ftven-node-auth-sdk",
+  "version": "1.0.0",
+  "description": "NodeJS request wrapper with ftven-style authent tokens",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/francetv/node-auth-sdk.git"
+  },
+  "author": "Gael Metais",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/francetv/node-auth-sdk/issues"
+  },
+  "homepage": "https://github.com/francetv/node-auth-sdk",
+  "dependencies": {
+    "printf": "^0.2.0",
+    "q": "^1.1.2",
+    "request": "^2.49.0"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-jshint": "^0.10.0",
+    "matchdep": "^0.3.0"
+  }
+}
