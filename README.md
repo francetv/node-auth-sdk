@@ -6,11 +6,12 @@ NodeJS request wrapper with ftven-style authent tokens
 Steps
 -----
 
-You need to send a request to an API, but you cannot send it directly. There are 3 steps.
+You need to send a request to an FTVEN API, but you cannot send it directly. There are 3 steps.
 
 ### Step 1: the client token
 
 If the token is not already saved or if it is expired, this package will automatically grab a Client Token. The Client Token identifies the application you are currenlty developping. Let's say it's called `myApplication`.
+
 A request is sent to `http://myapi.ftven.fr/access_token` with this header:
 ```
 'X-Ftven-Id': 'id: myApplication'
@@ -24,6 +25,7 @@ The API responds with this header:
 
 Another token is needed, for the user. It identifies the current user of the application.
 This package will automatically grab the Client Token if needed.
+
 A request is sent to `http://myapi.ftven.fr/user_token` with this headers:
 ```
 'X-Ftven-Id': 'id: myApplication, expire: 2014-12-10T14:16:21+0100, token: OTIxZjkzOGY4MjY4NzFhYz2ZDU53OTY1ZjE2ZGEzOWQxNDRjMWQwNQ=='
@@ -43,6 +45,7 @@ Finally, your initial request is sent with these two headers:
 ```
 
 If everything goes right, the API is happy and your request is accepted by the API.
+
 If anything goes wrong, take a breath, take a beer, then launch your app in debug mode.
 
 
@@ -113,3 +116,8 @@ Contribution
 Don't hesitate to fix bugs.
 Don't hesitate to adapt this module to your own API, but try to do this by implementing new options, instead of creating a fork.
 Don't forget to change version number in `package.json` and publish to NPM.
+
+
+Author
+------
+Gaël Métais for France Télévisions
