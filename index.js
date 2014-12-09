@@ -1,7 +1,7 @@
 var request     = require('request');
 var url         = require('url');
 var Q           = require('q');
-var debug       = require('debug')('index');
+var debug       = require('debug')('node-auth-sdk');
 
 var ClientToken = require('./lib/clientToken');
 var UserToken   = require('./lib/userToken');
