@@ -1,12 +1,13 @@
 node-auth-sdk
 =============
 
-NodeJS request wrapper with ftven-style authent tokens
+NodeJS request wrapper with ftven-style authentification tokens.
 
 Steps
 -----
 
-You need to send a request to an FTVEN API, but you cannot send it directly. There are 3 steps.
+You need to send a request to an FTVEN API, but it's not so simple. You need to send authentification tokens via the headers, and there are 3 steps.
+This package will do all the hard work for you, but let me explain the 3 steps.
 
 ### Step 1: the client token
 
@@ -48,19 +49,6 @@ If everything goes right, the API is happy and your request is accepted by the A
 
 If anything goes wrong, take a breath, take a beer, then launch your app in debug mode.
 
-
-Debug mode
-----------
-
-Just add `DEBUG=node-auth-sdk` when launching your application.
-For example if you use to launch your app like this:
-```
-node bin/myApp.js
-```
-Then launch it like that:
-```
-DEBUG=node-auth-sdk node bin/myApp.js
-```
 
 
 How to use?
@@ -110,6 +98,21 @@ sdk.call(method, uri, data, headers, options);
 ```
 
 
+Debug mode
+----------
+
+Just add `DEBUG=node-auth-sdk` when launching your application.
+For example if you use to launch your app like this:
+```
+node bin/myApp.js
+```
+Then launch it like that:
+```
+DEBUG=node-auth-sdk node bin/myApp.js
+```
+
+
+
 Contribution
 ------------
 
@@ -120,6 +123,9 @@ Don't hesitate to adapt this module to your own API, but try to do this by imple
 If you are owner of this repository and have the rights to do so, don't forget to publish the new version to NPM.
 
 
-Author
+
+LICENSE
 ------
-Gaël Métais for France Télévisions
+Copyright (c) 2014 France Télévisions Editions Numériques
+
+The FTVEN SWAT Team.
