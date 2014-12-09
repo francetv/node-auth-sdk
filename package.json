@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/francetv/node-auth-sdk",
   "dependencies": {
+    "debug": "^2.1.0",
     "printf": "^0.2.0",
     "q": "^1.1.2",
     "request": "^2.49.0"

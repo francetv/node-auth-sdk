@@ -1,6 +1,7 @@
 var request     = require('request');
 var url         = require('url');
 var Q           = require('q');
+var debug       = require('debug')('index');
 
 var ClientToken = require('./lib/clientToken');
 var UserToken   = require('./lib/userToken');
@@ -30,17 +31,26 @@ var FtvenNodeAuthSdk = function(apiUrl, clientId, userId, userPwd) {
     function mergeOptions(verb, uri, data, headers, options) {
         var deferred = Q.defer();
 
+        debug('Merging options');
+
         try {
             
             options = options || {};
             options.url = url.resolve(apiUrl, uri);
             options.method = verb;
-            options.body = (data) ? JSON.stringify(data) : data;
+            if (options.method === 'POST' || options.method === 'PATCH' || options.method === 'PUT') {
+                options.body = (data) ? JSON.stringify(data) : data;
+            }
             options.headers = headers || {};
+
+            debug('Merged options:');
+            debug(options);
 
             deferred.resolve(options);
 
         } catch(err) {
+            debug('Error while merging options');
+            debug(err);
             deferred.reject(err);
         }
 
@@ -49,10 +59,15 @@ var FtvenNodeAuthSdk = function(apiUrl, clientId, userId, userPwd) {
 
 
     function addClientTokenHeader(options) {
+
+        debug('Checking client token');
         
         if (!clientToken.hasToken() || !clientToken.isExpiredToken()) {
+
+            debug('Client token null or expired');
             
             return clientToken.requestToken().then(function() {
+                debug('New client token seems good');
                 options.headers[clientToken.getKey()] = clientToken.getValue();
                 return options;
             });
@@ -91,14 +106,23 @@ var FtvenNodeAuthSdk = function(apiUrl, clientId, userId, userPwd) {
     function sendRequest(options) {
         var deferred = Q.defer();
 
+        debug('Sending the request');
+        debug(options);
+
         request(options, function(err, httpResponse, body) {
             if (err) {
+                debug('Request failed');
+                debug(err);
                 deferred.reject(err);
             } else {
 
                 try {
+                    debug('Success');
+                    debug(body);
                     deferred.resolve(JSON.parse(body));
                 } catch(e) {
+                    debug('Request failed');
+                    debug(e);
                     deferred.reject('Error request response is not a valid JSON format');
                 }
             }
