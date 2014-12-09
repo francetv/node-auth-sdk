@@ -114,8 +114,10 @@ Contribution
 ------------
 
 Don't hesitate to fix bugs.
+
 Don't hesitate to adapt this module to your own API, but try to do this by implementing new options, instead of creating a fork.
-Don't forget to change version number in `package.json` and publish to NPM.
+
+If you are owner of this repository and have the rights to do so, don't forget to publish the new version to NPM.
 
 
 Author
