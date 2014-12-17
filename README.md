@@ -112,6 +112,58 @@ DEBUG=node-auth-sdk node bin/myApp.js
 ```
 
 
+Retrieve Client Token only
+--------------------------
+
+```js
+var FtvenNodeAuthSdk = require('ftven-node-auth-sdk');
+
+var apiUrl      = 'http://myapi.ftven.fr',
+    clientId    = 'myApplication';
+
+var sdk = new FtvenNodeAuthSdk(apiUrl, clientId);
+
+sdk.getClientToken()
+    .then(function(tokenObject) {
+        // tokenObject has 4 properties:
+        //  - id: the client ID
+        //  - expire: the expire Date object (for local use)
+        //  - expireString: the expire String (formatted by the API, use this to communicate with the API)
+        //  - token: the token String
+    })
+    .fail(function(error) {
+        console.log(error);
+    });
+```
+
+
+Retrieve User Token only
+--------------------------
+
+```js
+var FtvenNodeAuthSdk = require('ftven-node-auth-sdk');
+
+var apiUrl      = 'http://myapi.ftven.fr',
+    clientId    = 'myApplication',
+    userId      = 'john.doe',
+    userPwd     = 'crappypwd';
+
+var sdk = new FtvenNodeAuthSdk(apiUrl, clientId, userId, userPwd);
+
+sdk.getUserToken()
+    .then(function(tokenObject) {
+        // tokenObject has 4 properties:
+        //  - id: the user ID
+        //  - expire: the expire Date object (for local use)
+        //  - expireString: the expire String (formatted by the API, use this to communicate with the API)
+        //  - token: the token String
+    })
+    .fail(function(error) {
+        console.log(error);
+    });
+```
+
+
 
 Contribution
 ------------

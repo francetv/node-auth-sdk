@@ -15,6 +15,7 @@ var FtvenNodeAuthSdk = function(apiUrl, clientId, userId, userPwd) {
     var userToken = new UserToken(apiUrl, clientToken, userId, userPwd);
 
 
+    // Make an API call
     this.call = function(verb, uri, data, headers, options) {
         
         return mergeOptions(verb, uri, data, headers, options)
@@ -25,6 +26,64 @@ var FtvenNodeAuthSdk = function(apiUrl, clientId, userId, userPwd) {
             
             .then(sendRequest);
 
+    };
+
+    // Retrieve a Client Token for your application
+    this.getClientToken = function() {
+        var deferred = Q.defer();
+
+        debug('Getting client token');
+        
+        if (!clientToken.hasToken() || !clientToken.isExpiredToken()) {
+
+            debug('Client token null or expired');
+            
+            clientToken.requestToken().then(function() {
+                debug('New client token seems good');
+                deferred.resolve(clientToken.getObject());
+            }).fail(function(err) {
+                debug('Error while retrieving client token');
+                debug(err);
+                deferred.reject(err);
+            });
+
+        } else {
+            debug('Client token is already good');
+            deferred.resolve(clientToken.getObject());
+        }
+
+        return deferred.promise;
+    };
+
+    // Retrive a User token for an user of your application
+    this.getUserToken = function() {
+        var deferred = Q.defer();
+
+        debug('Getting user token');
+
+        this.getClientToken()
+            .then(function() {
+
+                if (!userToken.hasToken() || !userToken.isExpiredToken()) {
+
+                    debug('User token null or expired');
+
+                    userToken.requestToken().then(function() {
+                        debug('New user token seems good');
+                        deferred.resolve(userToken.getObject());
+                    }).fail(function(err) {
+                        debug('Error while retrieving user token');
+                        debug(err);
+                        deferred.reject(err);
+                    });
+
+                } else {
+                    debug('User token is already good');
+                    deferred.resolve(userToken.getObject());
+                }
+            });
+
+        return deferred.promise;
     };
 
 
